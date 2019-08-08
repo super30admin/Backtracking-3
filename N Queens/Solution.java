@@ -3,26 +3,28 @@ import java.util.*;
 class NQueens {
     public List<List<String>> solveNQueens(int n) {
         List<List<String>> result = new ArrayList<>();
-        result.add(new ArrayList<String>());
+        // result.add(new ArrayList<String>());
+        List<String> tempList = new ArrayList<>();
         for(int i=0;i<n;i++){
             //List<String> row = new ArrayList<>();
             String row = "";
             for(int j=0;j<n;j++){
                 row += ".";
             }            
-            result.get(0).add(row);
+           // result.get(0).add(row);
+           tempList.add(row);
         }
 
-        solveNQueensHandler(result, n, 0);
+        solveNQueensHandler(result, tempList, n, 0);
         return result;
     }
 
-    public boolean isSafe(List<List<String>> result, int row, int col){
+    public boolean isSafe(List<String> tempList, int row, int col){
 
         // left side of current row
 
         for(int i=0;i<col;i++){
-            if(result.get(0).get(row).charAt(i) == 'Q'){
+            if(tempList.get(row).charAt(i) == 'Q'){
                 return false;
             }
         }
@@ -30,14 +32,14 @@ class NQueens {
         // upper diagonal
 
         for(int i=row-1, j=col-1; i>=0&&j>=0; i--, j--){
-            if(result.get(0).get(i).charAt(j) == 'Q'){
+            if(tempList.get(i).charAt(j) == 'Q'){
                 return false;
             }
         }
 
         //lower diagonal
-        for(int i=row+1, j=col-1; i<result.get(0).size()&&j>=0; i++, j--){
-            if(result.get(0).get(i).charAt(j) == 'Q'){
+        for(int i=row+1, j=col-1; i<tempList.size()&&j>=0; i++, j--){
+            if(tempList.get(i).charAt(j) == 'Q'){
                 return false;
             }
         }
@@ -45,39 +47,41 @@ class NQueens {
         return true;
     }
 
-    public boolean solveNQueensHandler(List<List<String>> result, int n, int col){
+    public void solveNQueensHandler(List<List<String>> result, List<String> tempList, int n, int col){
 
         //base case
         if(col == n){
-            return true;
+            result.add(new ArrayList<>(tempList));
+            // return true;
         }
-        for(int i=0;i<result.get(0).size();i++){
+        for(int i=0;i<tempList.size();i++){
 
             //check if safe
-            if(isSafe(result, i, col) == true){
+            if(isSafe(tempList, i, col) == true){
                 
-                String temp = result.get(0).get(i); 
+                String temp = tempList.get(i); 
                 char[] tempArray = temp.toCharArray();
                 tempArray[col] = 'Q';
                 temp = String.valueOf(tempArray);
-                result.get(0).remove(i);
-                result.get(0).add(i, temp);
+                tempList.remove(i);
+                tempList.add(i, temp);
                 
-                if(solveNQueensHandler(result, n, col+1) == true){
-                    return true;
-                }
+                // if(solveNQueensHandler(result, tempList, n, col+1) == true){
+                //     return true;
+                // }
+                solveNQueensHandler(result, tempList, n, col+1);
                 
-                String tempBacktrack = result.get(0).get(i); 
+                String tempBacktrack = tempList.get(i); 
                 char[] tempBacktrackArray = tempBacktrack.toCharArray();
                 tempBacktrackArray[col] = '.';
                 tempBacktrack = String.valueOf(tempBacktrackArray);
                 
-                result.get(0).remove(i);
-                result.get(0).add(i, tempBacktrack);
+                tempList.remove(i);
+                tempList.add(i, tempBacktrack);
             }
         }
 
-        return false;
+        //return false;
     }
 }
 
