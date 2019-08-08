@@ -30,7 +30,7 @@ class WordSearch {
 
         if(board[i][j] == word.charAt(position)){
             char temp = board[i][j];
-            board[i][j]='#';
+            board[i][j]='*';
 
             // word found
             if(position == word.length() -1 ){

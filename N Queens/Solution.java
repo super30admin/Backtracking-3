@@ -9,8 +9,7 @@ class NQueens {
             String row = "";
             for(int j=0;j<n;j++){
                 row += ".";
-            }
-            
+            }            
             result.get(0).add(row);
         }
 
@@ -37,7 +36,7 @@ class NQueens {
         }
 
         //lower diagonal
-        for(int i=row+1, j=col-1; i<result.size()&&j>=0; i++, j--){
+        for(int i=row+1, j=col-1; i<result.get(0).size()&&j>=0; i++, j--){
             if(result.get(0).get(i).charAt(j) == 'Q'){
                 return false;
             }
@@ -52,24 +51,29 @@ class NQueens {
         if(col == n){
             return true;
         }
-        for(int i=0;i<result.size();i++){
+        for(int i=0;i<result.get(0).size();i++){
 
             //check if safe
             if(isSafe(result, i, col) == true){
+                
                 String temp = result.get(0).get(i); 
-                temp.toCharArray()[col] = 'Q';
-                //result.get(i).add(col, "Q");
+                char[] tempArray = temp.toCharArray();
+                tempArray[col] = 'Q';
+                temp = String.valueOf(tempArray);
+                result.get(0).remove(i);
                 result.get(0).add(i, temp);
+                
                 if(solveNQueensHandler(result, n, col+1) == true){
                     return true;
                 }
+                
                 String tempBacktrack = result.get(0).get(i); 
-                tempBacktrack.toCharArray()[col] = '.';
+                char[] tempBacktrackArray = tempBacktrack.toCharArray();
+                tempBacktrackArray[col] = '.';
+                tempBacktrack = String.valueOf(tempBacktrackArray);
+                
+                result.get(0).remove(i);
                 result.get(0).add(i, tempBacktrack);
-
-                // result.get(i).remove(col);
-                // result.get(i).add(col, ".");
-
             }
         }
 
