@@ -24,6 +24,8 @@ Output: [
 Explanation: There exist two distinct solutions to the 4-queens puzzle as shown above.
 */
 
+// T: O(N ^ N)
+
 
 class Solution {
     List<List<String>> result = new ArrayList<>();
