@@ -3,6 +3,7 @@ Add N queens to an NxN cchess board such that no queen can kill the other
 
 Approach : iterate over each row and add a queen by backtracting on column positions
 
+Works on leet code : made silly mistake with the formatted function
 Time complexity = O(N^N)
 Space complexity =  O(N)
 
@@ -46,7 +47,7 @@ class Solution(object):
             for row in range(self.n):
                 row_string = ""
                 for col in range(self.n):
-                    row_string += ('Q' if positions[row] == col else '.')  # mistake here
+                    row_string += ('Q' if positions[row] == col else '.')  # mistake made here positions[row].get(coll)
                 f_result += [row_string]
             f_results.append(f_result)
         return f_results
