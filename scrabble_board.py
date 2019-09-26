@@ -1,7 +1,7 @@
 """
 
 Given a 2 d array of letters see if a word can be formed as a sequence of adjacent
-characters such that no letter is reused once visited 
+characters such that no letter is reused once visited
 
 Time complexity O(3^N)
 Space complexity O(N)
