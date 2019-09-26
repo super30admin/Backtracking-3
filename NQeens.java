@@ -1,5 +1,5 @@
 //Time Complexity: O(N^2 N!)
-//space complexity: O(N^2)
+//space complexity: O(N)
 //Accepted on leetcode after several attempts
 //Was able to understand the question and partly the intuition in general but was stuck while attempting to code myself. 
 //Had to refer to a few solutions to see how to break my problems into parts and do it
