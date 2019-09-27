@@ -22,6 +22,7 @@ class Solution {
     }
     
     private void placeQueen(char[][] board, int row, List<List<String>> output){
+        //base condition
         if(row == board.length) {
             List<String> list = new ArrayList<>(board.length);
             for(char[] chars : board)
@@ -29,7 +30,8 @@ class Solution {
             output.add(list);
             return;
         }
-
+        
+        //calling backtrack function for each row
         for(int j=0; j<board.length; j++){
             board[row][j]='Q';
             if(isSafe(board, row, j))
@@ -41,7 +43,7 @@ class Solution {
     private int[][] directions = {{-1,1},{1,1},{-1,-1},{1,-1}};
 
     private boolean isSafe(char[][] board, int row, int col){
-        //col condition
+        //column condition
         for(int i=0; i<board[0].length; i++) {
             if (board[i][col] == 'Q' && i != row)
                 return false;
