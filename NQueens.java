@@ -15,40 +15,40 @@ class Solution {
         List<List<String>> output = new ArrayList<>();
         char[][] board = new char[n][n];
         for(char[] ch : board)
-            Arrays.fill(ch,'.');    //setting board to blank
+            Arrays.fill(ch,'.');                            //setting chess board to blank
 
-        placeQueen(board, 0, output);   //placing first queen in first row
+        placeQueen(board, 0, output);                       //placing first queen in first row
         return output;
     }
     
     private void placeQueen(char[][] board, int row, List<List<String>> output){
         //base condition
-        if(row == board.length) {   //if all n queens are placed in every row
+        if(row == board.length) {                           //if all n queens are placed in every row
             List<String> list = new ArrayList<>(board.length);
             for(char[] chars : board)
-                list.add(new String(chars));    //because expected output is in the form of list of lists
+                list.add(new String(chars));                //because expected output is in the form of list of lists
             output.add(list);
             return;
         }
-
-        //recursively calling backtrack function
+        
+        //calling backtrack function for each row
         for(int j=0; j<board.length; j++){
-            board[row][j]='Q';                  //making choice of placing queen
-            if(isSafe(board, row, j))           //checking if the placement satisifies row, column and diagonal conditions
-                placeQueen(board, row+1, output);   //now placing the next queen in next row
-            board[row][j]='.';                  //if condition of placement not satisfied then backtrack to default
+            board[row][j]='Q';                              //making choice of placing queen
+            if(isSafe(board, row, j))                       //checking if the placement satisifies row, column and diagonal conditions
+                placeQueen(board, row+1, output);           //now placing the next queen in next row
+            board[row][j]='.';                              //if condition of placement not satisfied then backtrack to default
         }
     }
     
     private boolean isSafe(char[][] board, int row, int col){   //determines if the placement of current queen is valid
-        //col condition
+        //column condition
         for(int i=0; i<board[0].length; i++) {
-            if (board[i][col] == 'Q' && i != row)   //checking for existence of second queen in the current column
+            if (board[i][col] == 'Q' && i != row)           //checking for existence of second queen in the current column
                 return false;
         }
         //row condition
         for(int j=0; j<board.length; j++){
-            if(board[row][j]=='Q' && j!=col)        //checking for existence of second queen in the current row
+            if(board[row][j]=='Q' && j!=col)                //checking for existence of second queen in the current row
                 return false;
         }
 
@@ -56,7 +56,7 @@ class Solution {
         for(int i=0; i<row; i++){
             for(int j=0; j<board[0].length; j++){
                 if( board[i][j] == 'Q' && (row+j==col+i || row+col==i+j ))
-                    return false;                   //checking for existence of second queen on the diagonals
+                    return false;                           //checking for existence of second queen on the diagonals
             }
         }
         return true;
