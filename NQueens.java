@@ -5,9 +5,9 @@ Approach: I have used backtracking approach here. First, I place the queen at (0
     The isSafe() method returns true if the placement adheres to row, column and diagonal condition of placing a Queen on chessboard
     else returns false. If the current placement is safe then, I call the backtrack function recursively to place next queen in
     next row.
-Time Complexity: O(n^n) where n is number of rows or columns in the grid. (I am not confident about this.)
+Time Complexity: O(n^n) where n is number of rows or columns in the grid.
 Space Complexity: O(n) where n is number of rows or columns in the grid.
-Known Issue: Duplicates in resultant output list of lists. I will resolve it using visited matrix.
+LC verified.
 */
 
 class Solution {
@@ -15,49 +15,49 @@ class Solution {
         List<List<String>> output = new ArrayList<>();
         char[][] board = new char[n][n];
         for(char[] ch : board)
-            Arrays.fill(ch,'.');
+            Arrays.fill(ch,'.');    //setting board to blank
 
-        placeQueen(board, 0, output);
+        placeQueen(board, 0, output);   //placing first queen in first row
         return output;
     }
     
     private void placeQueen(char[][] board, int row, List<List<String>> output){
-        if(row == board.length) {
+        //base condition
+        if(row == board.length) {   //if all n queens are placed in every row
             List<String> list = new ArrayList<>(board.length);
             for(char[] chars : board)
-                list.add(new String(chars));
+                list.add(new String(chars));    //because expected output is in the form of list of lists
             output.add(list);
             return;
         }
 
+        //recursively calling backtrack function
         for(int j=0; j<board.length; j++){
-            board[row][j]='Q';
-            if(isSafe(board, row, j))
-                placeQueen(board, row+1, output);
-            board[row][j]='.';
+            board[row][j]='Q';                  //making choice of placing queen
+            if(isSafe(board, row, j))           //checking if the placement satisifies row, column and diagonal conditions
+                placeQueen(board, row+1, output);   //now placing the next queen in next row
+            board[row][j]='.';                  //if condition of placement not satisfied then backtrack to default
         }
     }
     
-    private int[][] directions = {{-1,1},{1,1},{-1,-1},{1,-1}};
-
-    private boolean isSafe(char[][] board, int row, int col){
+    private boolean isSafe(char[][] board, int row, int col){   //determines if the placement of current queen is valid
         //col condition
         for(int i=0; i<board[0].length; i++) {
-            if (board[i][col] == 'Q' && i != row)
+            if (board[i][col] == 'Q' && i != row)   //checking for existence of second queen in the current column
                 return false;
         }
         //row condition
         for(int j=0; j<board.length; j++){
-            if(board[row][j]=='Q' && j!=col)
+            if(board[row][j]=='Q' && j!=col)        //checking for existence of second queen in the current row
                 return false;
         }
 
         //diagonal condition
-        for(int[] dir : directions ){
-            int x = row + dir[0];
-            int y = col + dir[1];
-            if(x>=0 && y>=0 && x<board.length && y<board[0].length && board[x][y]=='Q')
-                return false;
+        for(int i=0; i<row; i++){
+            for(int j=0; j<board[0].length; j++){
+                if( board[i][j] == 'Q' && (row+j==col+i || row+col==i+j ))
+                    return false;                   //checking for existence of second queen on the diagonals
+            }
         }
         return true;
     }
