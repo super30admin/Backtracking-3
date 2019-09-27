@@ -29,7 +29,7 @@ Submissions
 
 
  *
- * Time Complexity : O() Have confusion on it, will update after clarification 
+ * Time Complexity : O(n^2)
  * Space Complexity : O(n) excluding the result set 
  */
 
