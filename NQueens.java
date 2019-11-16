@@ -1,8 +1,8 @@
 /**
  * Time Complexity: O(N ^ N)??
  * Space Complexity: O(N)
- * Runs on Leetcode: No
- * Problems: Having trouble with logic to check if board is valid. however backtracking is working
+ * Runs on Leetcode: Yes
+ * Problems: Had trouble checking if board was valid
  */
 class Solution {
     
@@ -23,7 +23,7 @@ class Solution {
             return;
         }
         
-        for(int i = row; i < n; i++){
+        for(int i = 0; i < n; i++){
             StringBuilder newString = new StringBuilder();
             for(int j = 0; j < n; j++){
                 char c = j == i ? 'Q' : '.';
@@ -38,14 +38,12 @@ class Solution {
     }
     
     private boolean isValid(List<String> board){
-        String lastRow = board.get(board.size() - 1);
-        int lastQ = lastRow.indexOf('Q');
+        int lastRow = board.size() - 1;
+        int lastQ = board.get(lastRow).indexOf('Q');
         for(int i = 0; i < board.size() - 1; i++){
             int currentQ = board.get(i).indexOf('Q');
-            if(currentQ != -1){
-                int diff = Math.abs(currentQ - lastQ);
-                if(diff == 0) return false;
-            }
+            int diff = Math.abs(currentQ - lastQ);
+            if(diff == 0 || lastRow - i == diff ) return false;
         }
         return true;
     }
