@@ -22,7 +22,8 @@ class Solution:
             if board[i][j] != word[0]:
                 return False
             visited[i][j] = 1
-            if self.dfs(i + 1, j, word[1:], visited, board) or self.dfs(i - 1, j, word[1:], visited, board) or self.dfs(i, j + 1, word[1:], visited, board) or self.dfs(i, j - 1, word[1:], visited, board):
+            if self.dfs(i + 1, j, word[1:], visited, board) or self.dfs(i - 1, j, word[1:], visited, board) or 
+                            self.dfs(i, j + 1, word[1:], visited, board) or self.dfs(i, j - 1, word[1:], visited, board):
                 return True
             visited[i][j] = 0
             return False
