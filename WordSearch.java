@@ -1,7 +1,12 @@
 /*
+Time: O(MxN * 4^L) where L is length of string and MxN are matrix row and column size respectively
+Space: O(1)
 Algorithm:
 =========
-
+1. Use dfs to search for the string in the matrix, but the issue is when we mark it as visited, we might actually be missing finding
+part of string without backtracking
+2. Use backtracking to reverse the changes made to matrix values if string is not found. This lets matrix be intact when already visited and not
+matched character is part of string
 */
 class Solution {
     int m,n ;
