@@ -1,3 +1,8 @@
+// Time Complexity : O(n*m)
+// Space Complexity : O(1), O(m*n) with recursive stack
+// Did this code successfully run on Leetcode : Yes
+// Any problem you faced while coding this : No
+
 public class WordSearch {
     boolean[][] visited;
     int[][] dirs = {{1,0},{-1,0},{0,1}, {0,-1}};
