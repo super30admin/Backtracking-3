@@ -1,0 +1,53 @@
+// Time Complexity : O(n!)
+// Space Complexity : O(3n)
+// Did this code successfully run on Leetcode : Yes
+// Any problem you faced while coding this : No
+
+class Solution {
+    /* 3 hashset for storing the col and diagonal  1 and diagonal 2 */
+    HashSet<Integer> col = new HashSet<>();
+    HashSet<Integer> diag1 = new HashSet<>();
+    HashSet<Integer> diag2 = new HashSet<>();
+    public List<List<String>> solveNQueens(int n) {
+    
+        List<List<String>> result = new ArrayList<>(); // to store result
+        dfs(result, new ArrayList<String>(), 0, n); // dfs and backtrack to place queens
+        return result;
+    }
+    
+    public void dfs(List<List<String>> res, List<String> s , int row, int n){
+        // if we have filled all the rows then add the temp list to the result
+        if(row == n){
+            res.add(new ArrayList<>(s));
+            return;
+        }
+        /* try to place the queen at all the columns */
+        for(int i = 0; i< n ;i++){
+            
+            /* checking if it is feasible to add it to that index */
+            if(col.contains(i) || diag1.contains(row+i) || diag2.contains(row-i)) continue;
+            
+            /* if yes then create the string and add it to temp set*/
+            char[] r = new char[n];
+            Arrays.fill(r,'.');
+            r[i] ='Q';
+            String s1 = new String(r);
+            
+            /* action that column, diag1 and diag 2 has it */
+            s.add((s1));
+            col.add(i);
+            diag1.add(row+i);
+            diag2.add(row-i);
+            
+            /* dfs for remaning row */
+            dfs(res,s,row+1,n);
+            
+            /* reverse back the action for backtrack */
+            s.remove(s1);
+            col.remove(i);
+            diag1.remove(row+i);
+            diag2.remove(row-i);
+            
+        }
+    }
+}
