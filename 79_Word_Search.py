@@ -3,7 +3,7 @@
 # Did this code successfully run on Leetcode : Yes
 # Any problem you faced while coding this : No
 
-# Problem Approach(DFS + backgracking)
+# Problem Approach(DFS + backtracking)
 # 1. Traverse over the board in DFS manner and compare the char in word at each step
 # 2. If the current char from board matches the char in word, proceed to the next char
 # 3. If the current char from board does not match, backtrack and explore other directions 
