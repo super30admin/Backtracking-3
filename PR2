@@ -1,0 +1,50 @@
+// Time Complexity : O(m*n*(3^L)) where m and n are the dimensions of the matrix and L is the length of the word.(at every point, we have 3 options.)
+// Space Complexity : O(1) - no extra auxiliary space used.
+// Did this code successfully run on Leetcode : yes
+// Any problem you faced while coding this : no
+// Your code here along with comments explaining your approach: DFS with backtracking approach to find the word.
+
+
+class Solution {
+    int n;
+    int m;
+    public boolean exist(char[][] board, String word) {
+        if(board==null || board.length==0) return false;
+        n=board.length;
+        m=board[0].length;
+        for(int i=0;i<n;i++)
+        {  for(int j=0;j<m;j++){
+            if(board[i][j]==word.charAt(0)){
+                   if(dfs(board,word,i,j,0)) return true;
+            }
+        
+        }
+         
+        }
+        return false;
+    }
+    private boolean dfs(char[][] board, String word,int i,int j,int index){
+        //base
+        if(i<0 || i>n-1||j<0||j>m-1||board[i][j]=='#'||board[i][j]!=word.charAt(index)) return false;
+        if(index==word.length()-1) return true;
+        //logic
+        char temp=board[i][j];
+        board[i][j]='#';
+        //Recursion
+        int[][] dirs={{0,1},{0,-1},{1,0},{-1,0}};
+        for(int[] dir:dirs){
+            int r=i+dir[0];
+            int c=j+dir[1];
+            if(r>=0 && r<n && c>=0 && c<m && board[r][c]==word.charAt(index+1)){
+                if(dfs(board,word,r,c,index+1)){
+                return true;
+            }
+            }
+            
+        }
+        //until we visit all the 4 directions, we don't backtrack.
+        board[i][j]=temp;
+        return false;
+    }
+    
+}
