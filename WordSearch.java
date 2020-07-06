@@ -1,5 +1,5 @@
 // Time Complexity : O(m * n * (3 ^ l)) --> where m and n are lengths of input 2D-Board and l is the length of the word
-// Space Complexity : O(1)
+// Space Complexity : O(l)
 // Did this code successfully run on Leetcode (79): Yes
 // Any problem you faced while coding this : No
 
