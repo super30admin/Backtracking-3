@@ -1,5 +1,5 @@
 /**
- * Time: Exponential - (n*n^n)
+ * Time: Exponential - (n^n)
  * Space: O(n)
  */
 class Solution {
