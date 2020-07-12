@@ -1,4 +1,4 @@
-# Time Complexity : O(n!), where n is the input.
+# Time Complexity : O(n!), at each row there are n choice then n-2 then n-4, where n is the input.
 # Space Complexity : O(n^2), space for the board.
 # Did this code successfully run on Leetcode : yes
 # Any problem you faced while coding this : no
