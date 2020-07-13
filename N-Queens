@@ -1,0 +1,73 @@
+// Time Complexity : o(n2)
+// Space Complexity : O(n2)
+// Did this code successfully run on Leetcode : yes
+// Any problem you faced while coding this :no
+
+
+// Approach
+//1) Iterate over the chess board and will check whether the given position is safe or not
+//2) If the position is safe, place the queen over there else we will come back and recheck for the previously placed queens because if we are at a position which is not a correct place for the queen then that means the previously placed queens were not a correct place.
+//3) Then we backtrack and will again place the queens
+class Solution {
+    List<List<String>> result;
+    int [][] board;
+    int m;
+    public List<List<String>> solveNQueens(int n) {
+        result = new ArrayList<>();
+        if(n == 0)return result;
+        board = new int[n][n];
+        m = n;
+        backtrack(0);
+        return result;
+    }
+    
+    private void backtrack(int r){
+        //base
+        if(r == m){
+            List<String> li = new ArrayList<>();
+            for(int i=0;i<m;i++){
+               StringBuilder sb =new StringBuilder();
+               for(int j=0;j<m;j++){
+                   if(board[i][j]==0){
+                       sb.append('.');
+                   }else{
+                       sb.append('Q');
+                   }
+               }
+               li.add(sb.toString());
+           }
+            result.add(li);
+            return;
+        }
+        //logic
+        for(int i=0;i<m;i++){
+            if (isSafe(r,i)){
+                //action
+                board[r][i] = 1;
+                //recurse
+                backtrack(r+1);
+                //backtrack
+                board[r][i] = 0;
+            }
+        }
+    }
+    private boolean isSafe(int r, int c){
+        //column above
+        for(int k=0;k<r;k++){
+           if(board[k][c]==1)return false;
+        }
+        //diagonal up left
+        int i = r-1;int j = c-1;
+        while(i>=0 && j>=0){
+            if(board[i][j]==1)return false;
+            i--;j--;
+        }
+        //diagonal up right
+        i = r-1;j = c+1;
+        while(i>=0 && j<m){
+            if(board[i][j]==1)return false;
+            i--;j++;
+        }
+        return true;
+    }
+}

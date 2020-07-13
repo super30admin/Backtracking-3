@@ -1,0 +1,48 @@
+// Time Complexity : O(m*n*3^l), l is length of string
+// Space Complexity :O(m*n)
+// Did this code successfully run on Leetcode :yes
+// Any problem you faced while coding this :no
+
+
+// Approach:
+//1) Here we do depth first search at each index in board and will make a visited array to keep track if index has been visited before
+//2) define a recursive dfs function with base case that if we reach the end of string we return true
+//3) we need to consider five edge cases : 
+//  a) The fist char matches and there are no chars left in string then 
+//  b) We are at the right edge of board so can not move right 
+//  c) We are at the left edge of board so can not move left
+//  d) We are at the bottom edge of board so can not move down 
+//  e) We are at the top edge of board so can not move up 
+class Solution {
+    int m;int n;
+    public boolean exist(char[][] board, String word) {
+        m = board.length; n = board[0].length;
+        if(board == null || board.length == 0)return false;
+        for(int i =0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(backtrack(board,word,i,j,0)) return true; 
+            }
+        }
+        return false;
+    }
+    private boolean backtrack(char[][] board, String word,int i,int j,int index){
+        //base
+        if(index == word.length())return true;
+        if(i<0 || j<0 || i==m || j==n || board[i][j] == '#')return false;
+        int [][] dirs = {{0,1},{0,-1},{1,0},{-1,0}};
+        //action
+        if(word.charAt(index) == board[i][j]){
+            char temp = board[i][j];
+            board[i][j] = '#';
+            //recurse
+            for(int [] dir:dirs){
+                int r = i+dir[0];
+                int c = j+dir[1];
+                if(backtrack(board,word,r,c,index+1)) return true;
+            }
+            //backtrack
+            board[i][j] = temp;
+        }
+        return false;
+    }
+}
