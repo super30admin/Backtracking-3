@@ -1,0 +1,3 @@
+Approach 1 : DFS + Back Track
+Time Complexity : O(3 ^L) ---- > Length of the word you are searching and at every node we have threee directions to go.
+Space Complexity :
