@@ -13,7 +13,7 @@ class Solution:
                     return True
         return False
                 
-    def backtrack(self,board,word,i,jindex:int) -> bool:
+    def backtrack(self,board,word,i,jindex) -> bool:
         ### Base Case
         if i< 0 or j< 0 or i>=len(board) or j>=len(board[0]) or board[i][j]=='#': 
             return False
