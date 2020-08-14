@@ -1,0 +1,60 @@
+Time Complexity :O(N!)
+Space Complexity :O(N)
+Approach 1 : DFS and Backtracking
+class Solution:
+    def solveNQueens(self, n: int) -> List[List[str]]:
+        self.res=[]
+        self.n=n
+        self.board=[["" for i in range(n)] for i in range(n)]
+        print(self.board)
+        self.backtrack(0)
+        return self.res
+    
+    def backtrack(self,r):
+        ## Base Case
+        if r==self.n:
+            temp=[]
+            for i in range(0,self.n):
+                sb=''
+                for j in range(0,self.n):
+                    if self.board[i][j]==1:
+                        sb+=str('Q')
+                    else:
+                        sb+=str('.')
+                temp.append(sb)
+            self.res.append(temp)
+            return
+                            
+        ## logic
+        for j in range(0,self.n):
+            ##Trying to put Queen at a particular column
+            if (self.isSafe(r,j)):
+                ##Action
+                self.board[r][j]=1
+                ###Recurse
+                self.backtrack(r+1)
+                ###Backtrack
+                self.board[r][j]=0
+                
+    def isSafe(self,r,c:int)->bool:
+        ## Same Column up directions
+        for i in range(0,r):
+            if self.board[r][c]==1:
+                return False
+        ## Diagonal up right directions
+        j=c+1
+        i=r-1
+        while(i>=0 and j<self.n):
+            if self.board[i][j]==1:
+                return False
+            i-=1
+            j+=1
+        ## Diagonal up left directions
+        j=c-1
+        i=r-1
+        while(i>=0 and j>=0):
+            if self.board[i][j]==1:
+                return False
+            i-=1
+            j-=1
+        return True
