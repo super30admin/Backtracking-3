@@ -1,3 +1,5 @@
+//TC: O(n!)
+//SC: O(n^2), n:number of rows
 class Solution {
     int[][] board; int m; List<List<String>> result;
     public List<List<String>> solveNQueens(int n) {
