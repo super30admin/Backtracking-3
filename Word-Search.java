@@ -1,3 +1,5 @@
+//TC: O(3^(n*l))
+//SC: O(l), n: length of board, l: length of word
 class Solution {
     int m; int n;
     public boolean exist(char[][] board, String word) {
