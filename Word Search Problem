@@ -17,7 +17,7 @@ class Solution:
         ### Base Case
          if index==len(word)-1:
             return True  
-        if i< 0 or j< 0 or i>=len(board) or j>=len(board[0]) or board[i][j]=='#': 
+        if i < 0 or j < 0 or i >= self.m or j >= self.n or board[i][j] == '#': 
             return False  
         ### Logic
         dirs=[(0,1),(1,0),(-1,0),(0,-1)]
