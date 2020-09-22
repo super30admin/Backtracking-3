@@ -75,3 +75,76 @@ public:
         
     }
 };
+
+//Concise solution
+class Solution {
+public:
+    vector<vector<string>> result;
+    vector<vector<string>> solveNQueens(int n) {
+        //edge
+        if(n==0){
+            return result;
+        }
+        if(n==1){
+            vector<string> temp {"Q"};
+            result.push_back(temp);
+            return result;
+        }
+        
+        string str;
+        for(int i=0; i<n;i++){
+            char c= '.';
+            str.push_back(c);
+        }
+        
+        vector<string> temp(n, str);
+        back_track(n, 0, temp);
+        return result;
+    }
+    
+    void back_track(int n, int row, vector<string>& temp){
+        if(row ==n){
+            result.push_back(temp);
+            return;
+        }
+        
+        for(int i=0; i<n; i++){
+            if(cab_be_placed(n, row, i, temp)){
+                //action
+                temp[row][i] = 'Q';
+                //recurse
+                back_track(n, row+1, temp);
+                //backtrack
+                temp[row][i] = '.';
+            }
+        }
+    }
+    
+    bool cab_be_placed(int n, int row, int col, vector<string>& temp){
+        
+        for(int r=0; r<row; r++){
+            string str= temp[r];
+            if(str[col] == 'Q')
+                return false;
+        }
+        int r=row-1;
+        int c=col-1;
+        while(r>=0 && c>=0){
+            string str=temp[r];
+            if(str[c] == 'Q')
+                return false;
+            r--; c--;
+        }
+        
+        r=row-1;
+        c=col+1;
+        while(r>=0 && c<n){
+            string str=temp[r];
+            if(str[c] == 'Q')
+                return false;
+            r--; c++;
+        }
+        return true;
+    }
+    
+};
