@@ -1,4 +1,4 @@
-// Time Complexity : O(m * n) m = number of rows, n = number of columns
+// Time Complexity : O(m * n * m * n) for every character it will explore the whole grid in worst case; m = number of rows, n = number of columns
 // Space Complexity : O(m * n) m = number of rows, n = number of columns
 // Did this code successfully run on Leetcode : Yes
 // Any problem you faced while coding this : No
