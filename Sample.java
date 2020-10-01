@@ -1,6 +1,6 @@
 // Problem 1 - N-Queens
-// Time Complexity: 
-// Space Complexity: 
+// Time Complexity: O(n*m + m*n)
+// Space Complexity: O(n*n)
 
 // Algorithm
 // 1 - create a board initially with empty cells
@@ -104,8 +104,8 @@ class Solution {
 }
 
 // Problem 2 - Word Search
-// Time Complexity: 
-// Space Complexity: 
+// Time Complexity: O(n * m)
+// Space Complexity: O(1)
 
 // Algorithm
 // 1 - initialiaze directions array
