@@ -1,5 +1,6 @@
-# Time Complexity: (M * N) * K where K is the length of the word we are searching
+# Time Complexity: (M * N) * 3^K where K is the length of the word we are searching
 # Space Complexity: O(K) Length of the word we are searching
+# Passed Leetcode
 class Solution:
     
     def backtrack(self, path_set, board_index, word_index):
