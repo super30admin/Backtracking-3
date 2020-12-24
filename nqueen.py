@@ -1,5 +1,4 @@
 # time and space somplexity will ne exponential n^n
-# getting correct output till n=4 after that getting more solutions than expected
 
 
 class Solution(object):
@@ -11,10 +10,18 @@ class Solution(object):
         m = n
         board = [["." for i in range(n)] for j in range(n)]
         res = []
+        def issafe(x,black_col):
+            k = 1
+            for col in black_col[::-1]:
+                if x == col - k or x == col + k or x == col:
+                    return False
+                k += 1
+            return True
+        
         def nqueen(n,i,black_col):
             if n == 0:
                 temp = [''.join(i) for i in board]
-                res.append(temp)
+                if temp not in res: res.append(temp)
                 return 
             for x in range(m):
                 if not black_col:
@@ -24,7 +31,7 @@ class Solution(object):
                     board[i][x] = "."
                     black_col.pop()
                 else:
-                    if x not in black_col and x!= black_col[-1] -1 and x!= black_col[-1] + 1:
+                    if issafe(x,black_col):
                         board[i][x] = "Q"
                         black_col.append(x)
                         nqueen(n-1,i+1,black_col)
