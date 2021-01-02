@@ -1,6 +1,58 @@
-//TC: O()
-//SC: O()
+//TC: O(m * n * (3^L)) --> m = row / n = col / 3^l = options at each point
+//SC: O(L) --> Length of target ??
 
-//Approach: 
+//Approach: Idea is to perform backtracking using DFS 
+//HINT: call backtrack blindly to explore all possibilities at each index and continue if valid
 
 Solution:
+
+class Solution {
+    int[][] dirs;       //DFS using dirs
+    public boolean exist(char[][] board, String word) {
+        if(board==null || board.length==0){
+            return false;
+        }
+        
+        dirs = new int[][]{{0,1},{1,0},{-1,0},{0,-1}};
+        //traversing to check for 1st letter
+        for(int i = 0 ; i < board.length ; i++){
+            for(int j = 0 ; j < board[0].length ; j++){
+                //calling blindly as we need to explore all possibilities
+                   if(backtrack(i, j, 0, word, board)){
+                       return true;
+                   }  
+            }
+        }
+        return false;
+    }
+    
+    //index for word
+    private boolean backtrack(int i, int j, int index, String word, char[][] board){
+        //base
+        if(index==word.length()){
+            return true;
+        }
+        
+        if(i < 0 || j < 0 || i>= board.length || j>=board[0].length || board[i][j] =='#'){
+            return false;
+        }
+        
+        //logic
+        if(board[i][j] == word.charAt(index)){
+            char temp = board[i][j];
+            //action to mark as visited
+            board[i][j] = '#';
+            for(int[] dir : dirs){
+                int r = i + dir[0];
+                int c =  j + dir[1];
+                //recurse --> IMP. logic - IF satisfying >> continue to next character in target
+                if(backtrack(r, c, index  + 1 , word, board)) {
+                    return true;
+                }
+        }
+            //ELSE backtrack to move to original state
+            board[i][j] = temp;
+        }
+          return false;         
+    }
+}
