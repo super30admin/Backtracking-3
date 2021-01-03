@@ -1,0 +1,103 @@
+//TC: O(n^2) --> Not sure though??
+//SC: O(m * n) || O(n^2);  --> Additional board matrix
+
+// Approach: Idea is to perform exhaustive backtracking to find all possible arrangements
+//HINT: Idea is to use additional m*n board matrix and augment it. Later at every possible combination, traverse this matrix to take a snapshot of board matrix.  
+/*
+  # start with row =0, col=0;
+  # IF no queesn in same column && upper left && upper right --> check via SAFEMOVE(row,col)
+  # Place Queen
+  # if reached to n, take snapshot;
+  #Backtrack for another possible combination
+*/
+
+class Solution {
+    List<List<String>> result;
+    int[][] board;
+    public List<List<String>> solveNQueens(int n) {
+        result = new ArrayList<>();
+        
+        if(n==0){
+            return result;
+        }
+        
+        board = new int[n][n];
+        //We will have info available in backtrack about row && col as they are within colution class scope
+        backtrack(n, 0);
+        return result; 
+    }
+    
+    private void backtrack(int n, int row){
+        // System.out.println(row);
+        //BASE
+        if(row == n){
+            List<String> lst = new ArrayList<>();
+            for(int i = 0 ; i < n ; i++){
+                StringBuilder sb= new StringBuilder();
+                for(int j = 0 ; j < n ; j++){
+                    if(board[i][j]==1){
+                        sb.append('Q');
+                    }else{
+                        sb.append('.');
+                    }
+                }
+                
+                lst.add(sb.toString());
+            }
+            // System.out.println(lst);
+            result.add(lst);
+            return;
+        }
+        
+        //LOGIC
+        for(int i = 0 ; i < n ; i++){
+            if(safeMove(row,i,n)){
+                //action
+                board[row][i] = 1;
+                //recurse
+                backtrack(n, row+1);
+                //backtrack
+                board[row][i] = 0;
+            }
+        }
+        
+    }
+    
+    
+    private boolean safeMove(int row, int col, int n){
+        // System.out.println(row + " " + col);
+        //checking the column of previous row
+        for(int i = row ; i>= 0 ; i--){
+            if(board[i][col]==1){
+                return false;
+            }
+        }
+        
+        
+        //check for upper left
+         int i = row;
+         int j = col;
+            
+        while(i>=0 && j>=0){
+           if(board[i][j]==1){
+                return false;
+            }
+            i--;
+            j--;
+        }
+        
+    //check for upper right
+        i = row;
+        j = col;
+            
+        while(i>=0 && j<n){
+           if(board[i][j]==1){
+                return false;
+            }
+            i--;
+            j++;
+        }
+        
+        return true;
+    }
+}
