@@ -1,0 +1,60 @@
+class Solution:
+    
+    def fun(self, x, y, board, visited, counter, word, nrows, ncols):
+        # when all the letters of the word are processed, return True(indicates the target word is found)
+        if(counter == len(word)):
+            return True;
+        
+        # check for the valid neighbors for the next letter
+        for dx,dy in [[0,1], [0,-1], [1,0], [-1, 0]]:
+            # safe condition
+            if(0<= x + dx < nrows and 0 <= y+dy < ncols and not visited[x+dx][y+dy]):
+                
+                if(board[x+dx][y+dy] == word[counter]):
+                    #action
+                    visited[x+dx][y+dy] = True;
+                    # logic 
+                    if(self.fun(x+dx, y+dy, board, visited, counter+1, word, nrows, ncols)):
+                        return True;
+                    # backtrack 
+                    visited[x+dx][y+dy] = False;
+        return False;
+                    
+                
+    
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        if(not word):
+            return False;
+        startlocs= [];
+        nrows, ncols = len(board), len(board[0]);
+        
+        # find all the locations where the target word's first letter is and add those locations
+        # into the startlocs list
+        for i in range(nrows):
+            for j in range(ncols):
+                if(board[i][j] == word[0]):
+                    startlocs.append([i,j]);
+            
+        if(len(word) == 1 and not startlocs):
+            return False;
+        if(len(word) == 1 and startlocs):
+            return True;
+        
+        # call the function on every start location and if it finds the word, return True
+        for x,y in startlocs:
+            visited = [[False]*ncols for i in range(nrows)];
+            # action
+            visited[x][y] = True;
+            # logic
+            status = self.fun(x,y, board, visited, 1, word, nrows, ncols)
+            if(status):
+                return True;
+            
+        return False;
+    
+    '''
+    time complexity = O(n!)
+    space complexity = O(n^2)
+    '''
+        
+        
