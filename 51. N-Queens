@@ -1,0 +1,72 @@
+class Solution:
+    def issafe(self, row, col, visited):
+        # check whether any Q already present in same row
+        
+        for j in range(len(visited[0])):
+            if(visited[row][j] == 'Q'):
+                return False;
+        
+        # check whether any Q present in upper left diagonal
+        
+        i,j = row, col
+        while( i >= 0 and j >= 0):
+            if(visited[i][j] == 'Q'):
+                return False;
+            i -= 1;
+            j -= 1;
+        
+        # check whether any Q present in lower left diagonal
+        
+        i,j = row, col;
+        while( i< len(visited) and j >= 0):
+            if(visited[i][j] == 'Q'):
+                return False;
+            i += 1;
+            j -= 1;
+        return True;
+            
+    
+    
+    
+    def fun(self, col, result, visited):
+        
+        # base condition - push one possible solution 
+        if(col == len(visited[0])):
+            # create a deep copy and push possible solution into the result
+            visitedcopy = list(map(list, visited))
+            result.append(visitedcopy);
+            return
+        
+        # check for the possible rows to place the queue of a certain column
+        
+        for i in range(len(visited)):
+            if(self.issafe(i,col,visited)):
+                
+                # action 
+                visited[i][col] = 'Q';
+                # logic - apply the same function for next column
+                self.fun(col+1, result, visited);
+                # backtrack
+                visited[i][col] = '.'
+        
+        
+            
+        
+        
+    
+    
+    def solveNQueens(self, n: int) -> List[List[str]]:
+        visited =[['.']*n for i in range(n)];
+        result = [];
+        self.fun(0, result, visited)
+        #print(result)
+        for i in range(len(result)):
+            for j in range(len(result[i])):
+                result[i][j] = ''.join(result[i][j]);
+        return result;
+    
+    '''
+    time complexity = O(n!)
+    space complexity = O(n^2)
+    '''
+        
