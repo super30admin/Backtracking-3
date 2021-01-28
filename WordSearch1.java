@@ -1,17 +1,16 @@
 //Problem : 75 - Word Search 1
-// Time Complexity : O(m*n)*word.length | Suppose starting element is the last element and then there are several similar paths but exact path is only 1 which is from last element to first element. 
+// Time Complexity : O(m*n)3^word.length | Suppose starting element is the last element and then there are several similar paths but exact path is only 1 which is from last element to first element. 
 // Space Complexity : O(1), not considering recursion stack; | for recursive stack O(word length)
 // Did this code successfully run on Leetcode : Yes
 // Any problem you faced while coding this : No
 
-
 // Your code here along with comments explaining your approach
 
  //As we have to find the path matching the given string, thus we have to traverse connected components so DFS. 
-/* 1) Brute force : TC:O((m*n)*word length) | SC:O(m*n) for visted node array + O(word length) for recursive stack.  
+/* 1) Brute force : TC:O((m*n)*3^word length) | SC:O(m*n) for visted node array + O(word length) for recursive stack.  
                   Create visited array to keep track which nodes visited while doing dfs. Before executing the dfs mark that node as visited. While coming back from the dfs reverse the action of visited to not visited. If path is found then just return true.
    
-   2) Optimal Space Complexity : //TC: O(m*n)*word.length || SC:O(1), not considering recursion stack; | for recursive stack O(word length)
+   2) Optimal Space Complexity : //TC: O(m*n)*3^word.length || SC:O(1), not considering recursion stack; | for recursive stack O(word length)
                 Before executing the dfs save that node element in some temp variable. Update that node to some other character so that it will give us an idea that it is visted. While coming back from the dfs reverse the action of visited to not visited, by updating the visited element to the temp variable value. If path is found then just return true.
                 
     Note : Here visted is required because of the case : 
@@ -26,12 +25,23 @@
 
 */
 
+/*
+Note: To interviewer u can say that TC for worst case can be (m*n*4^L), L is word length, but that will happen only for middle elements and then for their children it will be 3^L(3 calls) thats why u can say ((m*n)*3^L).
+ Eg: [
+     ["A","A","A","A","A"],
+     ["A","A","A","A","A"],
+     ["A","A","A","A","A"],
+     ["A","A","A","A","A"],
+     ["A","A","A","A","A"]
+     ]
+     | String to found "AAAAAAAAB".
 
+*/
 class Solution75 {
     
     public boolean exist(char[][] board, String word) {
        
-        //TC: O(m*n)*word.length || SC:O(1), not considering recursion stack; | for recursive stack O(word length)
+        //TC: O(m*n)*(3^word length) || SC:O(1), not considering recursion stack; | for recursive stack O(word length)
         
         if(board==null || board.length==0 || word==null || word.length()==0) return false;
        
