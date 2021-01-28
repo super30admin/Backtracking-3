@@ -1,6 +1,6 @@
 class Solution:
     '''
-    Time Complexity: O(3^n)
+    Time Complexity: O(3^n) where n is the length of the word
     Space Complexity: O(1)
     '''
     def exist(self, board: List[List[str]], word: str) -> bool:
