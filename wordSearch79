@@ -1,0 +1,56 @@
+class Solution {
+    
+    //79. Word Search
+    //Time compelxity : 3^(the length of the word) * n 
+    //n is the number of the characters in the matrix
+    //Space compelxity : O(length of the word)
+    
+    
+     int rows;
+    int cols;
+    public boolean exist(char[][] board, String word) {
+        
+         rows = board.length;
+         cols = board[0].length;
+        
+        for(int i =0;i<rows;i++){
+            for(int j =0;j<cols;j++){
+               if( backtrack(board,word,i,j,0))
+                   return true;
+            }
+        }
+        return false;
+        
+    }
+    
+    private boolean backtrack(char[][] board, String word,int i,int j,int index){
+        
+        if(word.length()==index)
+            return true;
+        
+        if(i < 0 || i == rows || j < 0 || j == cols || board[i][j] =='#')
+            
+                return false;
+        
+        int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};
+        
+        if(word.charAt(index) == board[i][j]){
+            
+            char temp = board[i][j];
+            board[i][j]='#';
+            
+            for(int[] dir : dirs){
+                int r = dir[0]+i;
+                int c = dir[1]+j;
+                
+                    if(backtrack(board,word,r,c,index+1))
+                    return true;
+                
+                    
+            }
+            board[i][j]=temp;
+          
+        }
+          return false;
+    }
+}
