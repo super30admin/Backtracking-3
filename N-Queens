@@ -1,0 +1,81 @@
+class Solution {
+    private List<List<String>> output = new ArrayList<>();
+    public List<List<String>> solveNQueens(int n) {
+        if(n==0){
+            return output;
+        }
+        char[][] board = new char[n][n];
+
+        //Initial setup of board with fullstop
+        for(int i=0;i<board.length;i++){
+            for(int j=0;j<board[0].length;j++){
+                board[i][j] = '.';
+            }
+        }
+        backtracking(board,0,n);
+        
+        return output;
+    }
+    private void backtracking(char[][] board, int i, int n){
+        //if n goes out of board i.e.. length-1 (out of bound)
+        if(n==0){
+            output.add(makeOutput(board));
+            return;
+        }
+        //place our queen if position is valid:
+        for(int j=0;j < board[0].length;j++){
+            if(isValid(board,i,j)){//return true if there is no queen in attacking direction
+                board[i][j] = 'Q';
+                backtracking(board,i+1,n-1);//check for next row and now we have 1 less queen
+                board[i][j]='.';
+            }
+        }
+    }
+    private List<String> makeOutput(char[][] board){
+        List<String> temp = new ArrayList<>();
+        for(int i=0;i<board.length;i++){
+            StringBuilder sb = new StringBuilder();
+            for(int j=0;j<board[0].length;j++){
+                sb.append(board[i][j]);
+            }
+            temp.add(sb.toString());
+        }
+        return temp;
+    }
+    private boolean isValid(char[][] board,int i,int j){
+        
+        //upper column
+        int r = i;
+        int c = j;
+        while(r >= 0)
+        {
+            if(board[r][c] == 'Q'){
+                return false;
+            }
+            r -=1;
+        }
+            //left diagonal
+        
+        r = i;
+        c = j;
+        while(c >=0 && r>=0){
+            if(board[r][c] == 'Q'){
+                return false;
+            }
+            r -=1;
+            c -=1;
+        }
+            
+            //right diagonal
+             r = i;
+             c = j;
+            while(r >=0 && c<board[0].length){
+                if(board[r][c] == 'Q'){
+                    return false;
+                }
+                r -= 1;
+                c += 1;
+            }
+        return true;
+    } 
+}
