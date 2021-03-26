@@ -1,7 +1,7 @@
 class WordSearch {
 
-    // Time Complexity: O(mn)
-    // Space Complexity: O(mn)
+    // Time Complexity: O((mn)*3^L)     (where L -> length of the word)
+    // Space Complexity: O(L)
 
     public final int[][] dirs = {{0,1}, {1,0}, {0, -1}, {-1, 0}};
     public boolean exist(char[][] board, String word) {
