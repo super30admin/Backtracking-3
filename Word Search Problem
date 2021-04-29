@@ -1,0 +1,36 @@
+Approach 1 : DFS + Back Track
+Time Complexity : O(3 ^L) ---- > Length of the word you are searching and at every node we have threee directions to go.
+Space Complexity : Recursive stack space would be the length of the string
+class Solution:
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        self.m=len(board)
+        self.n=len(board[0])
+        self.board=board
+        if board is None or self.m==0: return False
+        for i in range (0,self.m):
+            for j in range (0,self.n):
+                if self.backtrack(board,word,i,j,0):
+                    return True
+        return False
+                
+    def backtrack(self,board,word,i,jindex) -> bool:
+        ### Base Case
+         if index==len(word)-1:
+            return True  
+        if i < 0 or j < 0 or i >= self.m or j >= self.n or board[i][j] == '#': 
+            return False  
+        ### Logic
+        dirs=[(0,1),(1,0),(-1,0),(0,-1)]
+        if word[index]==board[i][j]:
+            temp=board[i][j]   ### Taking a copy of the position 
+            ### Action
+            board[i][j]='#'             
+            ### Recursion
+            for dire in dirs :
+                r=dire[0]+i
+                c=dire[1]+j        
+                if self.backtrack(self.board,r,c,word,index+1):
+                    return True
+            #### BackTrack
+            board[i][j]=temp
+        return False
