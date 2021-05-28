@@ -1,7 +1,8 @@
 /*
-Desc : We check for every position of Queen in the board at every row ,
-whenever all th equeens are not able to accomodate, we backtrack and re position the queen at base level.
-Time Complexity : O(n!)
+Desc : We check for the presence of the first element of word in the board and search for consecutive
+elements, everytime a wrong path is chosen, we backtrack and replace the changes made in the matrix by the original value,
+and we continue with the recursive iteration to other path until we achieve target.
+Time Complexity : O(3^n)
 Space Complexity : O(1)
 */
 
