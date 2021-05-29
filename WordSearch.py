@@ -1,3 +1,6 @@
+# TC: O(M x N x 3 ^ L) where M = rows of matrix, N = columns of matrix and L = length of the word string. 
+# SC: O(L) where L = length of input string, which will also be the height of the recursive stack.
+
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
         rows = len(board)
