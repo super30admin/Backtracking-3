@@ -1,5 +1,5 @@
- //Time Complexity : O(M*N*3^L), M -> No. of rows, n -> No of columns, l -> Length of word to search
-//Space Complexity : O(L)
+ //Time Complexity : Exponential TC
+//Space Complexity : O(L) L:length of word
 class Solution {
     public boolean exist(char[][] board, String word) {
 
