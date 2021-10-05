@@ -1,0 +1,44 @@
+  class Solution {
+    public boolean exist(char[][] a, String word) 
+    {
+        boolean[][] visited = new boolean[a.length][a[0].length];
+        int m = a.length,n=a[0].length;
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(a[i][j]==word.charAt(0)) if(checkifPossible(i,j,a,word,1,visited)) return true;
+            }
+        }
+        return false;
+    }
+    public boolean checkifPossible(int i,int j,char[][] a,String word,int index,boolean[][] visited)
+    {
+        if(index==word.length()) return true;
+        
+        visited[i][j] = true;
+        
+        if(i+1<a.length && a[i+1][j]==word.charAt(index) && visited[i+1][j]==false) 
+        {
+            if(checkifPossible(i+1,j,a,word,index+1,visited)) return true;
+        }
+        
+        if(j+1<a[0].length && a[i][j+1]==word.charAt(index) && visited[i][j+1]==false)
+        {
+            if(checkifPossible(i,j+1,a,word,index+1,visited)) return true;
+        }
+        
+        if(i-1>=0 && a[i-1][j]==word.charAt(index) && visited[i-1][j]==false) 
+        {
+            if(checkifPossible(i-1,j,a,word,index+1,visited)) return true;
+        }
+    
+        if(j-1>=0 && a[i][j-1]==word.charAt(index) && visited[i][j-1]==false) 
+        {
+            if(checkifPossible(i,j-1,a,word,index+1,visited)) return true;
+        }
+        
+        visited[i][j] = false;
+        return false;
+    }
+}
