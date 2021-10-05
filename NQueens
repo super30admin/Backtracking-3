@@ -1,0 +1,53 @@
+class Solution {
+    public List<List<String>> solveNQueens(int n) {
+        List<List<String>> res=new ArrayList<>();
+        String[][] temp=new String[n][n];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                temp[i][j]=".";
+            }
+        }
+        backtrack(temp,0,n,res);
+        return res;
+    }
+    
+    public void backtrack(String[][] temp, int q,int n, List<List<String>> res){
+        if(q==n){
+            List<String> t=new ArrayList<String>();
+            for(int i=0;i<n;i++){
+                String str="";
+                for(int j=0;j<n;j++){
+                    str +=temp[i][j];
+                }
+                t.add(str);
+            }
+            res.add(t);
+        }
+        for(int i=0;i<n;i++){
+            if(isQueensAttacking(q,i,temp,n)){
+                temp[q][i]="Q";
+                backtrack(temp,q+1,n,res);
+                temp[q][i]=".";
+            }
+        }
+    }
+    
+    public boolean isQueensAttacking(int r, int c, String temp[][],int n){
+        int i,j;
+        //column check
+        for(i=0;i<r;i++){
+            if(temp[i][c]=="Q")
+                return false;
+        }
+        //diagonal check
+        for(i=r-1,j=c-1;i>=0 && j>=0;i--,j--){
+            if(temp[i][j]=="Q")
+                return false;
+        }
+        for(i=r-1,j=c+1;i>=0&&j<n;i--,j++){
+            if(temp[i][j]=="Q")
+                return false;
+        }
+        return true;
+    }
+}
