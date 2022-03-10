@@ -3,7 +3,7 @@
 # Did this run successfully on Leetcode: Yes
 # Any issues faced while coding: minor isues while coding
 # Explain your approach: check if a particular (row, col) is safe and continue to next rows and cols
-# if unsafe, backtrack, and at the end of each board, if add the combination to result
+# if unsafe, backtrack, and at the end of each dfs, i.e base case, add the combination to result
 
 
 class Solution:
@@ -26,9 +26,10 @@ class Solution:
                         else:
                             temp.append(".")
                     li.append("".join(temp))
+                    temp1 = li
                 result.append(li)
-
-
+            
+            
             # logic
             for j in range(n):
 
@@ -58,7 +59,7 @@ class Solution:
                 i -= 1
                 j -= 1
 
-            # diagonal up left check
+            # diagonal up right check
             i, j = r, c
             while i >= 0 and j < len(board[0]):
                 if board[i][j] == True:
@@ -69,6 +70,7 @@ class Solution:
                 
         dfs(0)
         return result
+        
 
 
 
