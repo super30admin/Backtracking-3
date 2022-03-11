@@ -1,5 +1,5 @@
-// Time Complexity : o(n^2))*n where n is length of string as at eevry step we have two choices to choose or not
-// Space Complexity : o(n*n)) length of recursive stack
+// Time Complexity : o(4^l))*(mn) where l is length of string and mn is size of frid
+// Space Complexity : o(l))  l l is length of string = length of recursive stack
 // Did this code successfully run on Leetcode : Yes
 // Any problem you faced while coding this : No
 
