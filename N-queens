@@ -1,0 +1,102 @@
+//TC= N^N  -> no. of steps
+//SC = O(1)  because of set
+
+class Solution {
+    
+    private List<List<String>> result;
+    
+    private boolean[][] board;
+    
+    private Set<Integer> colSet, leftUpperDiagSet, rightUpperDiagSet;
+    
+    public List<List<String>> solveNQueens(int n) {
+        
+        colSet = new HashSet<>();
+        leftUpperDiagSet = new HashSet<>();
+        rightUpperDiagSet = new HashSet<>();;
+        
+        result = new ArrayList<>();
+        
+        board = new boolean[n][n];
+        
+        solveQueens(board, 0);
+        
+        return result;
+    }
+    
+    private void solveQueens(boolean[][] board, int row){
+        
+        //base
+        //converting 'Q' to true and '.' to false
+       
+        if(row == board.length){   //board consists of string
+            List<String> out = new ArrayList<>();
+            for(int i = 0; i<board.length; i++){
+                StringBuilder sb = new StringBuilder();
+                for(int j=0; j<board.length; j++){
+                    if(board[i][j]){
+                        sb.append('Q');
+                    }else{
+                        sb.append('.');
+                    }
+                }
+                out.add(sb.toString());
+            }
+            result.add(out); 
+            return;
+            
+        }
+       
+        //recurse
+        for(int col=0; col<board.length; col++){
+            
+            if(isSafe(board, row, col)){  //if queen is placed in present row n col
+                
+                //placing queen
+                board[row][col] = true;
+                colSet.add(col);               //adding before checking its safe or not
+                leftUpperDiagSet.add(row-col);
+                rightUpperDiagSet.add(row+col);
+
+                
+                
+                solveQueens(board, row+1);  //solving problem with next row
+                
+                //removing queen
+                board[row][col] = false;
+                colSet.remove(col);               //removing before checking its safe or not
+                leftUpperDiagSet.remove(row-col);
+                rightUpperDiagSet.remove(row+col);
+           
+            }
+        }
+    }
+    
+    private boolean isSafe(boolean[][] board, int row, int col){
+         
+        return 
+            isSafeColumn(board, row, col)
+                     &&
+            isSafeLeftUpper(board, row, col)
+                     &&
+            isSafeRightUpper(board, row, col);
+    }
+    
+        private boolean isSafeColumn(boolean[][] board, int row, int col){
+        
+            return !colSet.contains(col);   //if it not contains queen then safe
+        }
+     private boolean isSafeLeftUpper(boolean[][] board, int row, int col){
+        
+            return !leftUpperDiagSet.contains(row-col);
+     }
+                               
+    
+     private boolean isSafeRightUpper(boolean[][] board, int row, int col){
+            return !rightUpperDiagSet.contains(row+col);
+
+             
+            }
+            
+        }
+
