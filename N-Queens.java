@@ -1,3 +1,4 @@
+// tc n! because at each row there are n-2, n-4 ... possibilities
 class Solution {
     
     //making result and grid class var cuz it's affected in every recursive call
@@ -30,11 +31,11 @@ class Solution {
                         sb.append('.');
                     }
                 }
-                list.add(sb.toString());
+                list.add(sb.toString()); //adding to list at end of each row
             }
             result.add(list);
             return;
-        }
+        } 
         //logic
         for(int i = 0; i < grid[0].length; i++) {
             if(isSafe(row, i)) {
