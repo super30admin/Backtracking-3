@@ -3,6 +3,8 @@
 # check up column 0,i
 # check left diagonal i--,j--
 # check right diagonal i--,j++
+# T.C. O(n!) where n is given grid row and olumns
+# S.C. O(n)
 class Solution:
     def solveNQueens(self, n: int) -> List[List[str]]:
         if n ==0:
