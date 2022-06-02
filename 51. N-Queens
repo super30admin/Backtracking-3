@@ -1,0 +1,28 @@
+class Solution {
+    List<List<String>> result;
+    int m;
+    boolean [][] board;
+    public List<List<String>> solveNQueens(int n) 
+    {
+        result = new ArrayList<>();
+        m = n
+        board = new boolen[m][m];
+        backtrack(board, n);
+        return result;
+        
+    }
+    
+    private void backtrack(boolean board, int r)
+    {
+        
+        
+        for(int c=0;c<m;c++)
+        {
+            
+        }
+    }
+}
+
+
+//Time complexity : Exponential 
+//space complexity : n^2 : As we are making a boolean board
