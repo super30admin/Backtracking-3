@@ -1,5 +1,5 @@
-# Time Complexity:    O(mxn)
-# Space Complexity:   recursive stack
+# Time Complexity:    O(3^N) as we are checking three sides except the already visited side
+# Space Complexity:   O(N) recursive stack
 
 
 class Solution:
