@@ -104,3 +104,75 @@ class Solution {
         return true;
     }
 }
+
+
+//****WORD SEARCH****
+//Time complexity:3^L
+//Space complexity: 0(m*n);
+
+class Solution {
+    int m;
+    int n;
+    int [][] dirs;
+    public boolean exist(char[][] board, String word) {
+        dirs=new int[][]{{0,1},{0,-1},{-1,0},{1,0}};
+        //Null case
+        if(board.length==0)
+        {
+            return false;
+        }
+        m=board.length;
+        n=board[0].length;
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(word.charAt(0)==board[i][j])
+                {
+                    if(dfs(board, word, i, j , 0 ))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+        
+    }
+    
+    private boolean dfs(char[][] board, String word,int i, int j, int index)
+    {
+        //Base
+        if(index==word.length()) return true;
+        
+        if(i<0 || j<0 || i==m ||j==n || board[i][j]=='#')
+        {
+            return false;
+        }
+        
+        //Logic
+        if(board[i][j]==word.charAt(index))
+        {
+            for(int[] dir: dirs)
+            {
+                int r=dir[0]+i;
+                int c=dir[1]+j;
+                //action
+                board[i][j]='#';
+                //recurse
+                if(dfs(board, word, r, c, index+1)) return true;
+                //backtrack
+                board[i][j]=word.charAt(index);
+            }
+            
+        }
+        return false;
+        
+        
+        
+    }
+}
+
+//If I have found the first letter 
+//Use the directions array and go for the next letter
+//Backtrack if we dont find any letter further
