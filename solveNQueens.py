@@ -1,8 +1,8 @@
 #Time complexity : O(n!) here n is given dimension of board for example if n = 4 then for putting in first row we will have n option then for putting in second row we will have (n-2) as same column as first row avoid and can't put diagonal then for third row it is (n-3) as diagonal both removed, column removed 
-Thus it is euqivalent to n(n-1)(n-2)(n-3)... = n!
+#Thus it is euqivalent to n(n-1)(n-2)(n-3)... = n!
 #Space complexity : O(n*n) where n is creating of boolean matrix
 #Did this code successfully run on Leetcode : Yes
-#youtube : https://www.youtube.com/watch?v=ciYRVgANgbM&ab_channel=%7BS30%7D
+#youtube : https://www.youtube.com/watch?v=7cZkbmXlRjM&ab_channel=%7BS30%7D
 class Solution:
     def __init__(self):
         self.result = []
