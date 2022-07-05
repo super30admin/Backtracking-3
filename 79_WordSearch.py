@@ -153,7 +153,7 @@ class Solution:
         # search for all word[0] to do dfs on
         for i in range(m):
             for j in range(n):
-                if found[0] == False and board[i][j] == word[0]:
+                if found[0] is False and board[i][j] == word[0]:
                     # since we already matched first char of word, mark it as visited and call dfs from second char in
                     # word.
                     # sending fresh copy of visited for every DFS.
