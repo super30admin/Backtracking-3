@@ -1,0 +1,27 @@
+class Solution:
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        #time complexity:O(m*n*3^l);
+        #space cpmplexity:O(l); l = length of word;
+        m = len(board)
+        n = len(board[0])
+        def bt(x, y, i): 
+            if i == len(word):
+                return True
+            if (x < 0 or x == m) or (y < 0 or y == n) or board[x][y] != word[i]: return False
+            c = board[x][y]
+            
+            board[x][y] = "#"
+            
+            i += 1
+            res = bt(x + 1, y, i) or bt(x, y + 1, i) or bt(x - 1, y, i) or bt(x, y - 1, i)
+            
+            board[x][y] = c
+            
+            return res
+            
+        for i in range(m):
+            for j in range(n):
+                if bt(i, j, 0):
+                    return True
+                
+        return False;
