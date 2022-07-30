@@ -18,7 +18,6 @@ class Solution:
                     return False
                 i-=1
                 j-=1
-            # right diagonal
             i , j = row,col
             while i>=0 and j < n:
                 if grid[i][j] == True:
@@ -44,11 +43,8 @@ class Solution:
                         
             for i in range(n):
                 if(isSafe(row, i)==True):
-                    #action
                     grid[row][i] = True
-                    #recursion
                     backtrack(row+1)
-                    #backtrack
                     grid[row][i] = False
             
         backtrack(0)
