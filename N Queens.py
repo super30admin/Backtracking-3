@@ -1,5 +1,5 @@
 # TC : O(n!)
-# SC : O(n)
+# SC : O(n^2)
 class Solution(object):
     def solveNQueens(self, n):
         
