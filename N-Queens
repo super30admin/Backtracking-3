@@ -1,0 +1,33 @@
+class Solution:
+    def solveNQueens(self, n: int) -> List[List[str]]:
+        s = set()
+        positive = set()
+        negative = set()
+        board = [["."] * n for _ in range(n)]
+        res = []
+        def solveNQueensHelper(r):
+            if r == n:
+                res.append(["".join(v) for v in board])
+                return
+            for c in range(n):
+                if (
+                    c in s
+                    or (r + c) in positive
+                    or (r - c) in negative
+                ):
+                    continue
+                s.add(c)
+                positive.add(r + c)
+                negative.add(r - c)
+                board[r][c] = "Q"
+                solveNQueensHelper(r + 1)
+                s.remove(c)
+                positive.remove(r + c)
+                negative.remove(r - c)
+                board[r][c] = "."
+        solveNQueensHelper(0)
+        return res
+    
+# Time Complexity: O((n^2)*n!)
+# Space Complexity: O(n^2)
+# Successfully implemented on Leetcode
