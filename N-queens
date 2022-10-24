@@ -1,0 +1,79 @@
+class Solution {
+public:
+    vector<vector<string>> finalanswer;
+    vector<vector<string>> solveNQueens(int n) {
+       vector<vector<bool>> mat(n, vector<bool> (n, false)); 
+        recurselogic(0,n, mat);
+        return finalanswer;
+    }
+    
+    
+    void recurselogic(int row,int n , vector<vector<bool>> mat){
+        //base
+        if(row == n){
+            vector<string> path;
+             string s;
+            for(int i = 0; i<n;i++){
+                for(int j = 0 ; j<n ; j++){     
+                    if(mat[i][j] == true){
+                        s+= "Q";
+                    }
+                    else{
+                        s+=".";
+                    }
+                }
+                path.push_back(s);
+                s = "";
+            }
+            finalanswer.push_back(path);
+            path.clear();
+        }
+        
+        //logic
+        for(int col = 0 ; col < n; col++){
+        if(safe(row,col,n,  mat)){
+            mat[row][col]= true;
+        //recurse
+        recurselogic(row+1,n, mat);
+        //backtrack
+       mat[row][col] = false;
+        }
+        }
+        
+    }
+    
+    bool safe( int row, int col, int n, vector<vector<bool>>& mat ){
+        for(int i = row-1 ; i>=0 ; i--){
+            if(mat[i][col]==true){
+                return false;
+            }
+        }
+            
+        int r = row-1;
+        int c = col-1;
+        while(r>=0 && c>=0){
+           if(mat[r][c]==true){
+                return false;
+            }
+            else{
+                r--;
+                c--;
+            }
+        }
+        
+                   
+        int ro = row-1;
+        int co = col+1;
+        while(ro >= 0 && co < n){
+            if(mat[ro][co]==true){
+                return false;
+            }
+            else{
+                ro--;
+                co++;
+            }
+        }    
+     return true;   
+    }
+    
+};
