@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 // Time Complexity:O(n!)
 // Space Complexity: 
 // Did this code successfully run on Leetcode: Yes
@@ -8,7 +10,7 @@
 /*
  * The idea is to place one queen in one row only. We iterate over each column of the row and we check if 
  * there is a queen in its top column, top left diagonal and top right diagonal. If it is safe for the queen, 
- * we make that spot true and then add it to the SB. Backtrack option is to make the spot false
+ * we make that spot true and then add it to the SB. Backtrack option is to make the spot false again
  */
 
 public class NQueens {
