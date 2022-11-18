@@ -1,0 +1,53 @@
+//TimeComplexity. (m*n)3^l
+//SpaceComplexity. O(l)
+
+class Solution {
+    int m;
+    int n;
+    int[][] dirs;
+    public boolean exist(char[][] board, String word) {
+        
+        if(board.length == 0 || word.length() == 0)return false;
+        m = board.length;
+        n = board[0].length;
+
+        dirs = new int[][]{{-1,0}, {0,1}, {1,0}, {0,-1}};
+
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+               if(helper(board,i,j,0,word))return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean helper(char[][] board,int r, int c, int index, String word){
+
+        //base
+        if(index == word.length())return true;
+
+        if(r < 0 || c < 0 || r >= m || c >= n || board[r][c] == '#')return false;
+
+        //logic
+        if(board[r][c] == word.charAt(index)){
+
+             //action
+            char ch = board[r][c];
+            board[r][c] = '#';
+
+              //recurse
+
+              for(int[] dir : dirs){
+                  int nr = r + dir[0];
+                  int nc = c + dir[1];
+
+                  if(helper(board,nr,nc,index+1, word))return true;
+              }
+
+            //backtrack
+            board[r][c] = ch;
+        }
+        return false;
+      
+    }
+}
