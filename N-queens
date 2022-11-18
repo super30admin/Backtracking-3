@@ -1,0 +1,93 @@
+//TimeComplexity. O(n!)
+//SpaceComplexity. O(n^2)
+
+
+class Solution {
+    List<List<String>> result;
+    int m;
+    public List<List<String>> solveNQueens(int n) {
+        result = new ArrayList<>();
+        boolean[][] board = new boolean[n][n];
+        m = n;
+        if(n == 0)return result;
+        helper(board,0);
+        return result;
+        
+    }
+
+    private void helper(boolean[][] board, int r){
+
+        //base
+
+        if(r == m){
+
+            List<String> list = new ArrayList<>();
+
+            for(int i = 0; i < r; i++){
+                StringBuilder sb = new StringBuilder();
+
+                for(int j = 0; j < m; j++){
+                    if(board[i][j]){
+                        sb.append("Q");
+                    }else{
+                        sb.append(".");
+                    }                  
+                }
+                list.add(sb.toString());
+            }
+            result.add(list);
+            
+        }
+
+
+
+        //logic
+
+        for(int c = 0; c < m; c++){
+            
+            if(isSafe(board,r,c)){
+                //action
+                board[r][c] = true;
+                //recurse
+                helper(board,r+1);
+
+                //backtrack
+                board[r][c] = false;
+            }
+        }
+    }
+
+    private boolean isSafe(boolean[][] board, int r, int c){
+
+        //column
+
+        for(int i = 0; i<r; i++){
+
+                if(board[i][c]) return false;
+        }
+
+        //uper left diagonal
+
+        int i = r;
+        int j = c;
+
+        while(i >= 0 && j >= 0){
+            if(board[i][j])return false;
+            i--;
+            j--;
+        }
+
+        //upper right diagonal
+
+       i = r;
+       j = c;
+
+        while(i >= 0 && j < m){
+            if(board[i][j])return false;
+            i--;
+            j++;
+        }
+
+        return true;
+    }
+}
