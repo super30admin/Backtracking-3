@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
 
-//Time Complexity : O(N * 2^N!) N is to check if queen is safe, 2^(N!) 
-//Space Complexity :O(N^3) 
-//Did this code successfully run on Leetcode :Yes
+//Time Complexity : O(N!)
+//Space Complexity :O(N^2) 
+//Did this code successfully run on Leet code :Yes
 //Any problem you faced while coding this :
 
 public class NQueen {
