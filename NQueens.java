@@ -1,3 +1,7 @@
+//Time Complexity: O(n!) // n(n-1)(n-2)...
+//Space Complexity: O(n^2) //row*col
+
+
 import java.util.*;
 
 class NQueens {
