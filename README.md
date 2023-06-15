@@ -5,6 +5,7 @@ N Queens(https://leetcode.com/problems/n-queens/)
 ##
 TC:o(n)
 SC:o(n)
+##
 class Solution:
     def solveNQueens(self, n: int) -> List[List[str]]:
         def dfs(queens, dif, sum):
@@ -27,6 +28,7 @@ Word Search(https://leetcode.com/problems/word-search/)
 ##
 TC:o(n)
 SC:o(n)
+##
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
         def dfs(i, j, k):
