@@ -110,7 +110,7 @@ class SolutionNQueens {
 
 
 //// ****************************** Another Approach ******************************
-//// Time Complexity: O(n^3)
+//// Time Complexity: O(n!)
 //// Space Complexity: O(n + n^2 = n^2)
 //
 //class SolutionNQueens {
@@ -218,7 +218,7 @@ class SolutionNQueens {
 //
 //
 //// ****************************** Another Approach ******************************
-//// Time Complexity: O(n^3)
+//// Time Complexity: O(n!)
 //// Space Complexity: O(n + n^2 = n^2)
 //
 //class SolutionNQueens {
