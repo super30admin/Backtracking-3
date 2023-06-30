@@ -1,0 +1,40 @@
+//79. Word Search
+
+
+//    Time complexity - O(N * 3^L), N --> total number of cells in the board and L --> length of the word. As for each cell, we explore at most 3 directions (excluding the previous direction) and recurse for the length of the word.
+//         Soace complexity - O(L) due to the recursion stack used for backtracking
+class Solution {
+    private int[][] dirs; int m,n;
+    public boolean exist(char[][] board, String word) {
+        //null check
+        if(board==null)return false;
+        dirs=new int[][]{{0,1},{1,0},{-1,0},{0,-1}};
+        m=board.length;
+        n=board[0].length;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(backtrack(board,word,0,i,j))return true;
+            }
+        }
+        return false;
+    }
+    private boolean backtrack(char[][]board,String word,int idx,int i,int j){
+        //base
+        if(idx==word.length())return true;
+        if(i<0 || j<0 || i==m || j==n || board[i][j]=='#')return false;
+        //logic
+        if(board[i][j]==word.charAt(idx)){
+            //action
+            board[i][j]='#';
+            //recurse
+            for(int []dir:dirs){
+                int nr=dir[0]+i;
+                int nc=dir[1]+j;
+                if(backtrack(board,word,idx+1,nr,nc))return true;
+            }
+            //backtrack
+            board[i][j]=word.charAt(idx);
+        }
+        return false;
+    }
+}
