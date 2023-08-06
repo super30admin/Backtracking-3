@@ -1,0 +1,79 @@
+/**
+Time Complexity - O(N!)
+Space Complexity - O(N^2)
+ */
+class Solution {
+
+    List<List<String>> results;
+
+    public List<List<String>> solveNQueens(int n) {
+        this.results = new ArrayList<>();
+        char[][] board = new char[n][n];
+        for (int i=0; i<n; i++) {
+            for (int j=0; j<n; j++) {
+                board[i][j] = '.';
+            }
+        }
+        helper(board, 0, n);
+        return results;
+    }
+
+    private void helper(char[][] board, int r, int n) {
+
+        //base
+        if (r == board.length) {
+            List<String> li = new ArrayList<>();
+            for (int i=0; i<n; i++) {
+                StringBuilder sb = new StringBuilder();
+                for (int j=0; j<n;j++) {
+                    sb.append(board[i][j]);
+                }
+                li.add(sb.toString());
+            }
+            results.add(li);
+        }
+
+        //col check
+        for(int j=0; j<n; j++) {
+            if (isValid(board,r, j,n)) {    
+                board[r][j] = 'Q';
+                helper(board, r+1, n);
+                board[r][j] = '.';
+            } 
+        }
+    }
+
+    private boolean isValid(char[][] board, int row, int col, int n) {
+        // column check
+        for (int i=0; i<row; i++) {
+            //System.out.println(row+","+col);
+            if (board[i][col] == 'Q') {
+                return false;
+            }
+        }
+
+        // diagonals check
+        int i = row, j=col;
+        while (i>=0 && j <n) {
+            //System.out.println(i +","+j +","+k);
+            if (board[i][j] == 'Q') {
+                return false;
+            }
+            i--;
+            // right diagonal
+            j++;
+        }
+        i = row;
+        j = col;
+        while (i>0 && j >0) {
+            //System.out.println(i +"," +k);
+            if (board[i][j] == 'Q') {
+                return false;
+            }
+            i--;
+            // left diagonal
+            j--;
+        }
+        return true;
+    }
+}
