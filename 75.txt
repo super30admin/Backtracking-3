@@ -1,0 +1,59 @@
+# Time Complexity : O(n!) 
+# Space Complexity : O(n^2)
+
+class Solution:
+    def solveNQueens(self, n: int) -> List[List[str]]:
+        board=[[False for _ in range(n)] for _ in range(n)]
+        res=[]
+
+
+        def isSafe(board, r, c):
+            # column up
+            for i in range(r):
+                if board[i][c]:
+                    return False
+
+            # diagonal up - right
+            x, y = r, c
+            while x >= 0 and y < len(board):
+                if board[x][y]:
+                    return False
+                x -= 1
+                y += 1
+
+            # diagonal up - left
+            x, y = r, c
+            while x >= 0 and y >= 0:
+                if board[x][y]:
+                    return False
+                x -= 1
+                y -= 1
+            return True
+
+
+        def helper(board,r):
+            #base
+            if r==n:
+                li=[]
+                for i in range(n):
+                    temp=''
+                    for j in range(n):
+                        if board[i][j]:
+                            temp+='Q'
+                        else:
+                            temp+='.'
+                    li.append(temp)
+                res.append(li)
+
+            #logic
+            for j in range(n):
+                if isSafe(board,r,j):
+                    #action
+                    board[r][j]=True
+                    #recurse
+                    helper(board,r+1)
+                    #backtrack
+                    board[r][j]=False
+
+        helper(board,0)
+        return res
