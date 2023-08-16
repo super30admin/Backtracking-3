@@ -1,0 +1,45 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2709
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\froman\fcharset0 TimesNewRomanPSMT;}
+{\colortbl;\red255\green255\blue255;\red25\green25\blue25;}
+{\*\expandedcolortbl;;\cssrgb\c12941\c12941\c12941;}
+\margl1440\margr1440\vieww9680\viewh6580\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs32 \cf2 \expnd0\expndtw0\kerning0
+class Solution:\
+    flag = False\
+    def exist(self, board: List[List[str]], word: str) -> bool:\
+        self.flag = False\
+        directions = [[-1, 0], [1,0], [0, 1], [0, -1]]\
+        def helper(board, word, i, j, idx):\
+            #base case\
+            if idx == len(word):\
+                self.flag = True\
+                return\
+            \
+            if i < 0 or j < 0 or i >= len(board) or j >= len(board[0]) or board[i][j] == "#" or board[i][j] != word[idx]:\
+                return\
+            \
+            #logic\
+        \
+            if word[idx] == board[i][j]:\
+                board[i][j] = "#"\
+                for r, c in directions:\
+                    nr = i + r\
+                    nc = j + c\
+                    \
+                    if not self.flag:\
+                        helper(board, word, nr, nc, idx + 1)\
+            \
+            board[i][j] = word[idx]\
+        \
+        for i in range(len(board)):\
+            for j in range(len(board[0])):\
+                if self.flag:\
+                    break\
+                else:\
+                    helper(board, word, i, j, 0)\
+                \
+        return self.flag\
+                    }
