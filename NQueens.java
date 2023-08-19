@@ -3,6 +3,25 @@
 // Did this code successfully run on Leetcode : Yes
 // Any problem you faced while coding this : No
 
+
+/*
+
+    Approach:
+
+    Initialize an empty N x N chessboard filled with dots ('.').
+
+    Use backtracking to explore queen placements row by row.
+    In each row, iterate through the columns and place a queen if
+    it's a valid move (no other queens in the same column or diagonals).
+    If a valid placement is found, continue to the next row.
+
+    When a valid placement of N queens is achieved, record it as a
+    solution and continue exploring other possibilities. Finally,
+    return all valid solutions.
+
+ */
+
+
 import java.util.*;
 
 class NQueens {

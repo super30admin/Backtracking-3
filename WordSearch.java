@@ -1,7 +1,30 @@
-// Time Complexity : O(n!)
-// Space Complexity : O(n^2)
+// Time Complexity : O(mn4^L) where m and n are the dimensions of the board, L is 4^L accounts for the
+//                            four possible directions (up, down, left, right) for each character in the word
+// Space Complexity : O(L)
 // Did this code successfully run on Leetcode : Yes
 // Any problem you faced while coding this : No
+
+
+
+
+/*
+
+Approach:
+
+Iterate through each cell on the board and check
+if the first character of the word matches the current cell.
+If it does, it starts a DFS from that cell to explore all
+possible paths while marking visited cells.
+
+During the DFS, it checks adjacent cells in four directions
+(up, down, left, right) to match the characters in the word,
+effectively searching for the entire word.
+
+If it successfully finds the entire word along a path,
+it returns true; otherwise, it backtracks by restoring
+visited cells, and if no path is found, it returns false.
+
+ */
 
 class WordSearch {
     public boolean exist(char[][] board, String word) {
