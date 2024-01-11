@@ -1,5 +1,5 @@
-//T.C O(n*n)
-//S.C O(n)
+//T.C O(n*n!) //T.C(3n) for isSafe() and n! for placing Q in each row
+//S.C O(n*n) //board size
 //Did the code run in LeetCode: yes
 
 
