@@ -1,4 +1,4 @@
-//T.C O(m*n)
+//T.C O(m*n)*3 pow L -> where L is length of the search string
 //S.C O(L) //recursive stack space will be of the length of given input word
 //Did the code run in LeetCode: yes
 
