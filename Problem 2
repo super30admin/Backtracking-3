@@ -1,0 +1,46 @@
+# Word Search 
+
+#tc: O(N * 4^L)
+#sc: O(L)
+
+class Solution:
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        def backtrack(row, col, index):
+            # Base case: If we have found the complete word
+            if index == len(word):
+                return True
+            
+            # Check boundary conditions and if the current cell matches the character
+            if row < 0 or row >= m or col < 0 or col >= n or board[row][col] != word[index]:
+                return False
+            
+            # Mark the cell as visited
+            temp = board[row][col]
+            board[row][col] = '#'
+            
+            # Explore adjacent cells
+            for dr, dc in directions:
+                if backtrack(row + dr, col + dc, index + 1):
+                    return True
+            
+            # Revert the cell back to its original state
+            board[row][col] = temp
+            return False
+        
+        m, n = len(board), len(board[0])
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]  # Up, down, left, right
+        
+        # Start the search from each cell in the grid
+        for i in range(m):
+            for j in range(n):
+                if backtrack(i, j, 0):
+                    return True
+        
+        return False
+
+# Example usage:
+sol = Solution()
+board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]]
+print(sol.exist(board, "ABCCED"))  # Output: True
+print(sol.exist(board, "SEE"))     # Output: True
+print(sol.exist(board, "ABCB"))     # Output: False
