@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
 
+// TC - O(N^N) => Each cell has N to choose from next row
+// SC - O(N) => Stack space of number of rows
+
 public class NQueen {
 
     class Solution {
