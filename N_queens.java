@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Nqueens {
+public class N_queens {
     //TC: O(n^m)
     //SC: O(n)
     List<List<String>> result;
