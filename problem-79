@@ -1,0 +1,77 @@
+/*
+
+Challenges: please help me confirm the time complexity.
+
+Time Complexity: O(m*n) * 3^l // l -> length of the word
+Space Complexity: O(1)
+
+LeetCode successful
+
+Approach:
+
+find where is the fist element of the word.
+then perform dfs on that particular index.
+also, mutate the current board value while performing dfs such that, there is no loop.
+after the dfs is completed for a parent, revert back the value of the board index.
+
+*/
+
+class Solution {
+    int [][] dirs = new int [][] {{0,1},{1,0},{-1,0},{0,-1}};
+    public boolean exist(char[][] board, String word) {
+        
+        boolean result=false;
+        for(int i=0;i<board.length;i++)
+            for(int j=0;j<board[0].length;j++)
+            {
+                if(board[i][j]==word.charAt(0))
+                    result=helper(board,word,i,j,0);
+                if(result==true)    return true;
+            }
+        
+        
+        return false;
+    }
+    
+    
+    
+  boolean  helper(char[][] board, String word, int boardRow,int boardCol,int wordIndex)
+    {
+
+      
+        if(board[boardRow][boardCol]!=word.charAt(wordIndex)
+          || board[boardRow][boardCol]== (char)'\0' )return false;
+        
+
+        if(wordIndex==word.length()-1) return true;
+        char temp=board[boardRow][boardCol];
+        board[boardRow][boardCol] = (char)'\0';
+        boolean result=false;
+      
+        for(int [] dir : dirs)
+        {
+            int i=boardRow+dir[0];
+            int j=boardCol+dir[1];
+            
+            if(i>=0 && i< board.length && j>=0 && j< board[0].length)
+            {
+               // res[k]=helper(wordIndex+1);
+                result =helper(board,word,i,j,wordIndex+1);
+            
+                if(result==true)
+                {
+                    board[boardRow][boardCol] = temp;
+                    return true;
+                }
+            }
+       
+        }
+        
+         board[boardRow][boardCol] = temp;
+        
+        
+      
+        return false;
+        
+    }
+}
