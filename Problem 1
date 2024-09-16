@@ -1,0 +1,50 @@
+//I have looked at this solution and tried to understand the problem.
+class Solution {
+    //A valid solution may not have two quees on a same row or a same column. So it's sufficient to represent a solution by a one dimensional array. i.e. partialSol[i] means the column index for the queen placed at the ith row.
+    public List<List<String>> solveNQueens(int n) {
+        int[] partialSol = new int[n];
+        List<List<String>> result = new ArrayList<List<String>>();
+        backTrack(n, 0, partialSol, result);
+        return result;
+    }
+    private void backTrack(int n, int position, int[] partialSol, List<List<String>> result) {
+        if (position == n) {
+            result.add(encode(partialSol));
+            return;
+        }
+        for (Integer i: viableColIndexCandidates(n, position, partialSol)) {
+            partialSol[position]=i;
+            position++;
+            backTrack(n, position, partialSol, result);
+            position--; //No need to reset partialSol since position configures what's being read up to
+        }
+    }
+    //This private method encodes a solution int array into the format requested by the problem here
+    private List<String> encode(int[] sol) {
+        List<String> encodedResult = new ArrayList<String>();
+        for (int r=0; r < sol.length; r++) {
+            StringBuilder sb = new StringBuilder();
+            for (int c=0; c<sol.length; c++) {
+                if (c==sol[r]) {
+                    sb.append('Q');
+                } else {
+                    sb.append('.');
+                }
+            }
+            encodedResult.add(sb.toString());
+        }
+        return encodedResult;
+    }
+    private List<Integer> viableColIndexCandidates(int n, int position, int[] partialSol) {
+        Set<Integer> result = new HashSet<Integer>();
+        for (int i=0; i<n;i++) {
+            result.add(i);
+        }
+        for (int j=0; j<position; j++) {
+            result.remove(partialSol[j]);
+            result.remove(partialSol[j]+position-j);
+            result.remove(partialSol[j]-position+j);
+        }
+        return new ArrayList<Integer>(result);
+    }
+}
