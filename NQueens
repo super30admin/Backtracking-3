@@ -1,0 +1,66 @@
+Backtrack: T.c --> n! , s.c --> O(n^2)
+
+class Solution {
+    boolean[][] grid;
+    List<List<String>> result = new ArrayList<>();
+    public List<List<String>> solveNQueens(int n) {
+      grid = new boolean[n][n];
+      backtrack(0);  
+      return result;
+    }
+    private void backtrack(int row){
+        if(row == grid.length){
+            List<String> answer = new ArrayList<>();
+            for(int i =0; i<grid.length; i++){
+                StringBuilder sb = new StringBuilder();
+                for(int j = 0; j<grid.length; j++){
+                 if(grid[i][j] == true){
+                   sb.append("Q");
+                 }else{
+                   sb.append("."); 
+                 }                  
+                }
+              answer.add(sb.toString());
+            }
+            result.add(answer);
+            return;
+        }
+        for(int i =0; i<grid.length; i++){
+            if(check(grid,row,i)){
+               grid[row][i] = true; 
+               backtrack(row+1);
+               grid[row][i] = false;    
+            }
+        }
+    }
+    private boolean check(boolean[][] grid, int l, int m){  
+       int row = l;
+       int col = m;      
+       while(row>=0){        
+        if(grid[row][col] == true){
+            return false;
+        }  
+        row--;
+       }
+       row = l;
+       col = m;
+       while(row>=0 && col<grid.length){
+        if(grid[row][col] == true){
+            return false;
+        }  
+        row--;
+        col++;
+       }
+       row = l;
+       col = m;
+       while(row>=0 && col>=0){
+        if(grid[row][col] == true){
+            System.out.println(row+"--"+col);
+            return false;
+        }  
+        row--;
+        col--;
+       }
+       return true;
+    }
+}
