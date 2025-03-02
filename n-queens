@@ -1,0 +1,63 @@
+// Time Complexity :O(n!.n) ==>O(n!)
+// Space Complexity :O( n ^2) for board O(n) recursive call stack ,for result it would be O(n!.n) ==> O(n!) ==>O(n!)
+// Did this code successfully run on Leetcode :yes
+// Any problem you faced while coding this :no
+
+
+// Your code here along with comments explaining your approach:here is the recursive approach where i start itterating
+//   row and column by exploring all possible conditions by inrecementing row for each itteration in parrallel checking isSafe.if my r is n then it indicates end of the board then i itteraing over the matrix and appending row and column values to stringbuilder as per requirement and addign that to path after each row then after complete itteration appemding it to result.
+
+class Solution {
+    public List<List<String>> solveNQueens(int n) {
+        boolean [][] board=new boolean[n][n]; // initailizing board with n*n
+        List<List<String>> result=new ArrayList<>(); 
+     
+        helper(board,0,result,n);
+        return result;
+        
+    }
+    public void helper( boolean [][] board,int r, List<List<String>>  result,int n){
+       if(r == n){ //reacher end of board
+           List<String> path=new ArrayList<>(); //new path for each possible itteration
+            for(int i=0;i<n;i++){
+                StringBuilder str=new StringBuilder();
+                for(int j=0;j<n;j++){
+                    if(board[i][j]==true){
+                        str.append("Q"); //appending queen to string
+
+                    }else{
+                         str.append(".");//appending no queen to string
+                    }
+                }
+                path.add(new String(str)); //after each row adding string to path
+            }
+            result.add(new ArrayList<>(path)); //after board adding path to result
+            return;
+        }   
+        for(int c = 0;c < n; c++){
+             if(isSafe(board,r,c,n) == true){ //checking whaether the position is safe to put queen
+                 board[r][c] = true; //action
+                   helper(board,r+1,result,n); // recursion for next row as we put queen for current row
+                   board[r][c] =false; //recusion
+             }
+        }
+
+    }
+    public boolean isSafe(boolean [][] board,int r,int c,int n){
+    for(int i=0;i<r;i++){ //  checking wheather particuar column which we are going to put queen is containing any queen before or not
+       if(board[i][c] == true) return false;
+    }
+    int i=r;int j=c;
+    while(i>=0 && j>=0){ //checking left diagonals
+         if( board[i][j] ==true)return false;
+  i--;j--;
+    }
+     i=r; j=c;
+    while(i>=0 && j<n){///checking right diagonals
+if( board[i][j] ==true)return false;
+i--;j++;
+    }
+    return true;
+    }
+
+}
