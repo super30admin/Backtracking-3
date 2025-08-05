@@ -1,0 +1,47 @@
+class Solution {
+    int[][] dirs;
+    int m,n;
+    public boolean exist(char[][] board, String word) {
+        if(board == null || board.length == 0 || board[0].length == 0){
+            return false;
+        }
+        //use dfs for each element, and check each letter from word with it
+        dirs = new int[][]{{0,-1}, {0, 1}, {1, 0}, {-1,0}}; // L R U D
+        m = board.length;
+        n = board[0].length;
+        boolean result = false;
+            for(int i =0 ;i<m; i++){
+                for(int j =0; j< n; j++){
+                    if(backtrack(board, word, i, j, 0)){
+                        return true;
+                    }
+                }
+            }
+        return false;
+        
+    }
+
+    private boolean backtrack(char[][] board, String word, int row, int col, int i){
+        //base
+        if(i == word.length()){
+            return true;
+        }
+        if(row >= m || col >= n || row < 0 || col < 0 || board[row][col] != word.charAt(i)){
+            return false;
+        }
+        //action
+        board[row][col] = '#';
+        for(int []dir : dirs){
+            int nr = dir[0] + row;
+            int nc = dir[1] + col;
+            //recursion
+            if(backtrack(board, word, nr, nc, i+1)){
+                return true;
+            }
+        }
+        //backtrack
+        board[row][col] = word.charAt(i);
+        return false;
+        
+    }
+}
