@@ -1,0 +1,45 @@
+// Time Complexity: O(m*n*4^l) , l->length of word
+// Space Complexity: O(l)
+
+// Traverse through the board, and do dfs from all the starting characters of the word on the board
+// mark a position on the board as visited if it matches with the current character in the word
+// if it matches all characters in the word return true, otherwise backtrack
+
+class Solution {
+    int[][] dir;
+    public boolean exist(char[][] board, String word) {
+        dir = new int[][]{{0,1}, {1,0}, {-1,0}, {0,-1}};
+        int m = board.length;
+        int n = board[0].length;
+
+        for(int i = 0 ; i < m; i++) {
+            for(int j = 0; j < n; j++) {
+                // If the first character matches do dfs on the remaining characters
+                if(board[i][j] == word.charAt(0)) {
+                    if(backtrack(board, word, i, j, 0))
+                        return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean backtrack(char[][] board, String word, int i, int j, int idx) {
+        if(idx == word.length())
+            return true;
+        if(i < 0 || i >= board.length || j < 0 || j >= board[0].length || board[i][j] == '#' || board[i][j] != word.charAt(idx)) 
+            return false;
+
+        board[i][j] = '#'; // marking as visited
+        // check neighbours
+        for(int[] d : dir) {
+            int r = d[0] + i;
+            int c = d[1] + j;
+            if(backtrack(board, word, r, c, idx+1))
+                return true;
+        }
+        board[i][j] = word.charAt(idx); //backtrack
+        
+        return false;
+    }
+}
