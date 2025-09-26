@@ -1,0 +1,77 @@
+// Time Complexity: O(n * n!)
+// Space Complexity: O(n^2)
+
+// Place queens row by row recursively by checking if its safe to place
+// To check the safety of a position check the column up, left diagonal up and right diagonal up to see if a queen has been placed in those lines using a boolean matrix
+// Create the result list from the boolean matrix after placing all the queens
+
+class Solution {
+    List<List<String>> result;
+    public List<List<String>> solveNQueens(int n) {
+        this.result = new ArrayList<>();
+        boolean[][] grid = new boolean[n][n];
+        helper(grid, 0, n);
+        return result;
+    }
+
+    private void helper(boolean[][] grid, int row, int n) {
+        if(row == n) {
+            // Create result list from the boolean grid which contains the positions of the queens
+            List<String> list = new ArrayList<>();
+            for(int i = 0; i < n; i++) {
+                StringBuilder sb = new StringBuilder();
+                for(int j = 0; j < n; j++) {
+                    if(grid[i][j]) {
+                        sb.append("Q");
+                    }
+                    else {
+                        sb.append(".");
+                    }
+                }
+                list.add(sb.toString());
+            }
+            result.add(list);
+            return;
+        }
+
+        for(int j = 0; j < n; j++) {
+            // Check if a queen can placed at this position
+            if(isSafe(grid, row, j, n)) {
+                grid[row][j] = true;
+                helper(grid, row+1, n);
+                grid[row][j] = false;
+            }
+        }
+    }
+
+    private boolean isSafe(boolean[][] grid, int r, int c, int n) {
+        // check column up
+        int i = r;
+        int j = c;
+        while(i >= 0) {
+            if(grid[i][j])
+                return false;
+            i--;
+        }
+
+        // check left diagonal up
+        i = r;
+        while(i >= 0 && j >= 0) {
+            if(grid[i][j])
+                return false;
+            i--;
+            j--;
+        }
+
+        // check right diagonal up
+        i = r;
+        j = c;
+        while(i >= 0 && j < n) {
+            if(grid[i][j])
+                return false;
+            i--;
+            j++;
+        }
+        return true;
+    }
+}
