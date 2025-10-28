@@ -1,0 +1,83 @@
+// Time Complexity: O(m * n * 4^L) where L = word.length()
+
+// Space Complexity: O(M * N * L)
+
+
+
+
+import java.util.*;
+
+class Solution {
+    public boolean exist(char[][] board, String word) {
+        if (board == null || board.length == 0 || board[0].length == 0) return false;
+
+        int rows = board.length;
+        int cols = board[0].length;
+        int[][] directions = new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (board[i][j] == word.charAt(0)) {
+                    if (bfs(board, word, i, j, directions)) return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private boolean bfs(char[][] board, String word, int startI, int startJ, int[][] directions) {
+        int rows = board.length;
+        int cols = board[0].length;
+
+        Queue<State> queue = new LinkedList<>();
+        boolean[][] visited = new boolean[rows][cols];
+        visited[startI][startJ] = true;
+        queue.offer(new State(startI, startJ, 0, visited));
+
+        while (!queue.isEmpty()) {
+            State curr = queue.poll();
+            int i = curr.i, j = curr.j, idx = curr.idx;
+            boolean[][] vis = curr.visited;
+
+            if (idx == word.length() - 1) return true;
+
+            for (int[] dir : directions) {
+                int newI = i + dir[0];
+                int newJ = j + dir[1];
+
+                if (newI >= 0 && newJ >= 0 && newI < rows && newJ < cols && !vis[newI][newJ]) {
+                    if (board[newI][newJ] == word.charAt(idx + 1)) {
+                        boolean[][] newVis = deepCopy(vis);
+                        newVis[newI][newJ] = true;
+                        queue.offer(new State(newI, newJ, idx + 1, newVis));
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private boolean[][] deepCopy(boolean[][] original) {
+        int m = original.length;
+        int n = original[0].length;
+        boolean[][] copy = new boolean[m][n];
+        for (int i = 0; i < m; i++) {
+            System.arraycopy(original[i], 0, copy[i], 0, n);
+        }
+        return copy;
+    }
+
+    private static class State {
+        int i, j, idx;
+        boolean[][] visited;
+
+        State(int i, int j, int idx, boolean[][] visited) {
+            this.i = i;
+            this.j = j;
+            this.idx = idx;
+            this.visited = visited;
+        }
+    }
+}
